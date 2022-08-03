@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+<!--
+    data和el有2种写法
+        1.el有2种写法
+            (1).new Vue 时配置el属性。
+            (2).先创建Vue实例，可命名为vm，随后再通过vm.$mount('#root')指定el的值。
+        2.data有2种写法
+            (1).对象式
+            (2).函数式
+            如何选择: 目前哪种写法都可以，但学习到组件时，data必须使用函数式，否则会报错。
+        3.一个重要的原则:
+            由Vue管理的函数，一定不要写箭头函数，一旦写成了箭头函数，this就不再是Vue实例了。
+-->
+
+    <div id="root">
+        <h1>插值语法</h1>
+        <h3>你好, {{url}}</h3>
+        <hr/>
+        <h1>指令语法</h1>
+        <a :href="url" x="hello">点我去百度</a>
+        <a :href="url.toUpperCase()" x="hello">点我去百度</a>
+    </div>
+
+
+    <script type="text/javascript">
+
+        Vue.config.productionTip = false //阻止vue 在启动时生成生产提示
+        //创建Vue实例
+        const v = new Vue({
+            // el:"#root",//第一种写法
+            //data的第一种写法: 对象式
+            /*data:{//第一种写法
+                name:"邹雨琪",
+                url:"http://www.baidu.com"
+            }*/
+
+            //data的第二种写法 函数式
+            data:function () {//常用函数还可以简写，即变为 data(){}去掉:和function。若改为 箭头函数则 this就变为了 windows对象
+                console.log("@@@",this)//此处的this是 Vue实例对象
+                return {url:"http://www.baidu.com"}
+            }
+        })
+
+        v.$mount('#root')//el的第二种写法 mount的意思是加载，即将解析后的容器再替换回去
+
+    </script>
+</body>
+</html>
