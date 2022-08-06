@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+
+<!--
+    MVVM模型
+        1. M: 模型(Model):data中的数据
+        2. V: 视图(View):模板代码
+        3. VM:视图模型(ViewModel)：Vue实例
+    观察发现：
+        1. data中所有的属性，最后都出现在了vm身上。
+        2.vm身上所有的属性及 Vue原型上所有属性。在Vue模板中都可以直接使用(比如此处就是用花括号使用)。
+-->
+
+<!--准备好一个容器-->
+<div id="root">
+    <h1>学校名称{{name}}</h1>
+    <h3>学校地址{{address}} {{url}}</h3>
+    <hr/>
+</div>
+
+
+<script type="text/javascript">
+
+    Vue.config.productionTip = false //阻止vue 在启动时生成生产提示
+    //创建Vue实例
+    const vm = new Vue({
+        //data的第二种写法 函数式
+        data:function () {//常用函数还可以简写，即变为 data(){}去掉:和function。若改为 箭头函数则 this就变为了 windows对象
+            console.log("@@@",this)//此处的this是 Vue实例对象
+            return {name:"尚硅谷",address:'北京'}
+        }
+    })
+
+    vm.$mount('#root')//el的第二种写法 mount的意思是加载，即将解析后的容器再替换回去
+
+</script>
+</body>
+</html>
